@@ -6,9 +6,9 @@ import users.models
 NULLABLE = {'null': True, 'blank': True}
 
 STATUS_CHOICES = [
-    ('start', 'start'),
-    ('finish', 'finish'),
-    ('created', 'created'),
+    ('start', 'Запущена'),
+    ('finish', 'Отправлено'),
+    ('created', 'Создана'),
 ]
 INTERVAL_CHOICES = [
     ('once_a_day', 'ежедневно'),

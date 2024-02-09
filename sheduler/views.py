@@ -1,3 +1,4 @@
+from django.shortcuts import render
 import random
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy, reverse
@@ -5,10 +6,8 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView, D
 from blog.models import Blog
 from sheduler.forms import MailForm, MessageForm, ClientForm, MailModeratorForm
 from sheduler.models import Message, Mail, Client, Logs
-from config.services import get_cache_for_mailings, get_cache_for_active_mailings
+from sheduler.services import get_cache_for_mailings, get_cache_for_active_mailings
 
-
-# Create your views here.
 
 class MailCreateView(LoginRequiredMixin, CreateView):
     model = Mail
@@ -63,7 +62,7 @@ class MailListView(LoginRequiredMixin, ListView):
 
 class HomeView(ListView):
     model = Mail
-    template_name = 'sendmail/home.html'
+    template_name = 'sheduler/home.html'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
