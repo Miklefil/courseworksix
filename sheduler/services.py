@@ -11,13 +11,13 @@ def my_job():
     weak = timedelta(days=7, hours=0, minutes=0)
     month = timedelta(days=30, hours=0, minutes=0)
 
-    mailings = Mail.objects.all().filter(status='Создана') \
+    mailings = Mail.objects.all().filter(status='created') \
         .filter(is_active=True) \
         .filter(next_date__lte=datetime.now(pytz.timezone('Europe/Moscow'))) \
         .filter(end_date__gte=datetime.now(pytz.timezone('Europe/Moscow')))
 
     for mail in mailings:
-        mail.status = 'Запущена'
+        mail.status = 'start'
         mail.save()
         emails_list = [client.email for client in mail.mail_to.all()]
 
@@ -30,24 +30,24 @@ def my_job():
         )
 
         if result == 1:
-            status = 'Отправлено'
+            status = 'finish'
         else:
-            status = 'Ошибка отправки'
+            status = 'error'
 
         log = Logs(mail=mail, status=status)
         log.save()
 
-        if mail.interval == 'ежедневно':
+        if mail.interval == 'once_a_day':
             mail.next_date = log.last_mailing_time + day
-        elif mail.interval == 'раз в неделю':
+        elif mail.interval == 'once_a_week':
             mail.next_date = log.last_mailing_time + weak
-        elif mail.interval == 'раз в месяц':
+        elif mail.interval == 'once_a_month':
             mail.next_date = log.last_mailing_time + month
 
         if mail.next_date < mail.end_date:
-            mail.status = 'Создана'
+            mail.status = 'created'
         else:
-            mail.status = 'Завершена'
+            mail.status = 'finish'
         mail.save()
 
 

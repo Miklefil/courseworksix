@@ -6,14 +6,14 @@ import users.models
 NULLABLE = {'null': True, 'blank': True}
 
 STATUS_CHOICES = [
-    ('start', 'Запущена'),
-    ('finish', 'Отправлено'),
-    ('created', 'Создана'),
+    ('start', 'start'),
+    ('finish', 'finish'),
+    ('created', 'created'),
 ]
 INTERVAL_CHOICES = [
-    ('once_a_day', 'ежедневно'),
-    ('once_a_week', 'раз в неделю'),
-    ('once_a_month', 'раз в месяц'),
+    ('once_a_day', 'once_a_day'),
+    ('once_a_week', 'once_a_week'),
+    ('once_a_month', 'once_a_month'),
 ]
 
 
