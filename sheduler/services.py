@@ -19,7 +19,7 @@ def my_job():
     for mail in mailings:
         mail.status = 'start'
         mail.save()
-        emails_list = [client.email for client in mail.mail_to.all()]
+        emails_list = [client.email for client in mail.client.all()]
 
         result = send_mail(
             subject=mail.message.title,
