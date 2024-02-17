@@ -34,7 +34,7 @@ def my_job():
         else:
             status = 'error'
 
-        log = Logs(mail=mail, status=status)
+        log = Logs(mailing=Mail, status=status)
         log.save()
 
         if mail.interval == 'once_a_day':
